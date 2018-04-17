@@ -1,7 +1,7 @@
 import csv
 import os
 
-# from spacecrafts import list_spacecrafts
+#from spacecrafts import list_spacecrafts
 
 # github link to retrieve CargoList1.csv if necessary
 github_link = ("https://github.com/stevenuva/minor-programmeren/blob/"
@@ -29,10 +29,6 @@ for row in csv_list[1:]:
     cargo1_list.append(cargo1_dic)
 
 cargo1_list = sorted(cargo1_list, key=lambda
-                     parcel: parcel["volume"])
-
-cargo1_list = cargo1_list[:82]
-cargo1_list = sorted(cargo1_list, key=lambda
                      parcel: parcel["kg/m3"])
 
 Cygnus = {"mass": 2000, "volume": 18.9}
@@ -50,9 +46,22 @@ list_spacecrafts = sorted(list_spacecrafts, key=lambda
                           spacecraft: spacecraft["kg/m3"])
 
 
-# TODO verdeel !! parcels aan de hand van kg/m3 score in 2 of 4 aparte lijsten
-# print(list_spacecrafts)
-# print(cargo1_list)
+list1 = []
+list2 = []
+list3 = []
+list4 = []
+listrest = []
+for parcel in cargo1_list:
+    if 50 <= parcel.get("kg/m3") <= 180:
+        list1.append(parcel)
+    elif 250 <= parcel.get("kg/m3") < 350:
+        list2.append(parcel)
+    elif 350 <= parcel.get("kg/m3") <= 425:
+        list3.append(parcel)
+    elif 500 <= parcel.get("kg/m3") <= 710:
+        list4.append(parcel)
+    else:
+        listrest.append(parcel)
 
 
 counter1 = 0
@@ -60,7 +69,7 @@ counter2 = 0
 counter3 = 0
 counter4 = 0
 
-for parcel in cargo1_list:
+for parcel in list:
     if(parcel["mass"] <= list_spacecrafts[0]["mass"]) and (parcel["volume"] <= list_spacecrafts[0]["volume"]):
         list_spacecrafts[0]["mass"] -= parcel["mass"]
         list_spacecrafts[0]["volume"] -= parcel["volume"]
@@ -78,7 +87,7 @@ for parcel in cargo1_list:
         list_spacecrafts[3]["volume"] -= parcel["volume"]
         counter4 += 1
     else:
-        print(parcel)
+        continue
 
 print(list_spacecrafts)
 print("Parcels in the first spaceship:", counter1)
