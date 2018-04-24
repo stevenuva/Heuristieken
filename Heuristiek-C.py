@@ -36,6 +36,10 @@ cargo1_list = sorted(cargo1_list, key=lambda
 # slice list
 cargo1_list = cargo1_list[:70]
 
+# of 
+# cargo1_list = cargo1_list[:71]
+
+
 # sort list on kg/m3 ratio
 cargo1_list = sorted(cargo1_list, key=lambda
                      parcel: parcel["kg/m3"])
