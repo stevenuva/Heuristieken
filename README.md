@@ -1,6 +1,7 @@
 # minor-programmeren
 
 Authors:
+
 Michael Hu 11996102  
 Steven Kühnen  
 Marc Moorman 10769781  
