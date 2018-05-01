@@ -12,20 +12,20 @@ All our code is written in in Python version 3.6.5.. For the moment, no extra in
 
 ### Structure:  
 
-The folder "data" contains the cargolists with the csv files. These lists are loaded into our code to answer the questions. 
-The folder "algorithms" contains the codes used for the specific subquestions from our case. Spacecraft_classes.py contains our created classes.
-The folder "presentations" contains the progress presentations given over time. 
-The folder "test" contains tests for code. 
-The file "results" contains the results we found so far, with a more elaborate explanation of the question. 
+The folder "data" contains the cargolists with the csv files. These lists are loaded into our code to answer the questions.   
+The folder "algorithms" contains the codes used for the specific subquestions from our case.   Spacecraft_classes.py contains our created classes.  
+The folder "presentations" contains the progress presentations given over time.   
+The folder "test" contains tests for code.   
+The file "results" contains the results we found so far, with a more elaborate explanation of the question.   
 
 ### Results
 | Questions |  Answers (for now) |
 |---|---|
 |A|82 parcels|
-|B|82 parcels, costs: $2.009.210.000,-|
+|B|82 parcels, costs: $ 2.009.210.000,-|
 
 ## Authors
 
 Michael Hu 11996102  
-Steven Kühnen 
+Steven Kühnen   
 Marc Moorman 10769781
