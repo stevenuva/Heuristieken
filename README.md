@@ -26,6 +26,9 @@ Run Heursitieken_B.py which can be found in the folder Opdracht B. If you run Op
 |Test1       | test 2     | test 3     |            
 |
 
-| Question A | Question B | Question C |
-|---|---|---|
-|Test1|test2|test3|
+| Questions |  Answers (for now) |
+|---|---|
+|A|82 parcels|
+|B|82 parcels, costs: $2.009.210.000,-|
+
+
