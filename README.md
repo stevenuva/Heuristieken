@@ -18,12 +18,6 @@ The folder "presentations" contains the progress presentations given over time.
 The folder "test" contains tests for code.   
 The file "results" contains the results we found so far, with a more elaborate explanation of the question.   
 
-### Results
-| Questions |  Answers (for now) |
-|---|---|
-|A|82 parcels|
-|B|82 parcels, costs: $ 2.009.210.000,-|
-
 ## Authors
 
 Michael Hu 11996102  
