@@ -19,4 +19,13 @@ Using the greedy algorithm and while running heurstiek_A.py it is possible to fi
 QUESTION B
 Run Heursitieken_B.py which can be found in the folder Opdracht B. If you run Opdracht_B.py you will find that you can 82 parcels with you. One option thereby is $335,000 cheaper than the second option (Cygnus: 17, Progress: 15, Kounotori: 28, Dragon: 22). The only difference between the options is the shift of one cargeo between Cygnus and Progress.
 
- 
+## Table with results
+
+| Question A | Question B | Question C |
+|------------|------------|------------|
+|Test1       | test 2     | test 3     |            
+|
+
+| Question A | Question B | Question C |
+|---|---|---|
+|Test1|test2|test3|
