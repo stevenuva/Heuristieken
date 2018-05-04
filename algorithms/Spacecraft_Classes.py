@@ -1,5 +1,6 @@
 import math
 
+
 # class for using the spacecraft properties
 # adds cargo, calculates the cost, and mass and volume used and remaining
 
@@ -37,18 +38,19 @@ class Spacecraft:
     def remaining(self):
         return self.remaining_mass, self.remaining_volume
 
+    def score(self)
 
-# properties of the spacecrafts
-Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-Progress = Spacecraft(2400, 7.6, 7020, 175, 0.74)
-Kounotori = Spacecraft(5200, 14, 10500, 420, 0.71)
-Dragon = Spacecraft(6000, 10, 12200, 347, 0.72)
-TianZhou = Spacecraft(6500, 15, 13500, 412, 0.75)
-Verne_ATV = Spacecraft(7500, 48, 20500, 1080, 0.72)
+# # define properties of the spacecrafts
+# Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
+# Progress = Spacecraft(2400, 7.6, 7020, 175, 0.74)
+# Kounotori = Spacecraft(5200, 14, 10500, 420, 0.71)
+# Dragon = Spacecraft(6000, 10, 12200, 347, 0.72)
+# TianZhou = Spacecraft(6500, 15, 13500, 412, 0.75)
+# Verne_ATV = Spacecraft(7500, 48, 20500, 1080, 0.72)
 
-Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-print(Cygnus.remaining())
-Cygnus.add_cargo("#4", 100, 10)
-print(Cygnus.filled())
-print(Cygnus.remaining())
-print(Cygnus.cost())
+# Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
+# print(Cygnus.remaining())
+# Cygnus.add_cargo("#4", 100, 10)
+# print(Cygnus.filled())
+# print(Cygnus.remaining())
+# print(Cygnus.cost())
