@@ -11,7 +11,7 @@ class Spacecraft:
         self.base_cost = base_cost
         self.cargo_list = []
         self.ftw = ftw / (1 - ftw)
-        self.kgm3 = payload_mass / volume
+        self.ratio = payload_mass / volume
         self.remaining_mass = payload_mass
         self.remaining_volume = volume
         self.payload_mass = payload_mass
@@ -26,6 +26,8 @@ class Spacecraft:
         self.cargo_list.append(self.cargo)
 
     def cost(self):
+        self.filled_mass = self.payload_mass - (self.remaining_mass)
+        self.filled_volume = self.volume - (self.remaining_volume)
         self.fuel = (self.filled_mass + self.spacecraft_mass) * self.ftw
         self.total_cost = (math.ceil(self.fuel * 1000) * 5) + self.base_cost
         return self.total_cost
@@ -38,7 +40,7 @@ class Spacecraft:
     def remaining(self):
         return self.remaining_mass, self.remaining_volume
 
-    def score(self)
+    # def score(self)
 
 # # define properties of the spacecrafts
 # Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
