@@ -1,12 +1,14 @@
 import csv
 import os
+import random
+import Spacecraft_Classes
 
 # github link to retrieve CargoList1.csv if necessary
 github_link = ("https://github.com/stevenuva/minor-programmeren/blob/"
-               "master/CargoList2.csv")
+               "master/CargoList1.csv")
 
 # path to the csv_file
-csv_file = "./data/CargoList2.csv"
+csv_file = "../data/CargoList1.csv"
 
 # check if user has csv at the right path
 for path in [csv_file]:
@@ -36,7 +38,7 @@ cargo1_list = sorted(cargo1_list, key=lambda
 # slice list
 cargo1_list = cargo1_list[:70]
 
-# of 
+# of
 # cargo1_list = cargo1_list[:71]
 
 
@@ -69,6 +71,8 @@ counter2 = 0
 counter3 = 0
 counter4 = 0
 
+counter = counter1 + counter2 + counter3 + counter4
+
 # create spacecraft cargo
 c_spacecraft1 = {}
 c_spacecraft2 = {}
@@ -77,70 +81,79 @@ c_spacecraft4 = {}
 
 key = 0
 
-# for parcel in cargo1_list:
-#     if(parcel["mass"] <= list_spacecrafts[2]["mass"]) and (parcel["volume"] <= list_spacecrafts[2]["volume"]):
-#         list_spacecrafts[2]["mass"] -= parcel["mass"]
-#         list_spacecrafts[2]["volume"] -= parcel["volume"]
-#         counter3 += 1
-
-#     elif(parcel["mass"] <= list_spacecrafts[3]["mass"]) and (parcel["volume"] <= list_spacecrafts[3]["volume"]):
-#         list_spacecrafts[3]["mass"] -= parcel["mass"] 
-#         list_spacecrafts[3]["volume"] -= parcel["volume"]
-#         counter4 += 1
-#     elif(parcel["mass"] <= list_spacecrafts[1]["mass"]) and (parcel["volume"] <= list_spacecrafts[1]["volume"]):
-#         list_spacecrafts[1]["mass"] -= parcel["mass"]
-#         list_spacecrafts[1]["volume"] -= parcel["volume"]
-#         counter2 += 1
-#     elif(parcel["mass"] <= list_spacecrafts[0]["mass"]) and (parcel["volume"] <= list_spacecrafts[0]["volume"]):
-#         list_spacecrafts[0]["mass"] -= parcel["mass"]
-#         list_spacecrafts[0]["volume"] -= parcel["volume"]
-#         counter1 += 1
-
-
-
 # loop to place the parcels in the spaceship when possible
 for parcel in cargo1_list:
     if(parcel["mass"] <= list_spacecrafts[0]["mass"]) and (parcel["volume"] <= list_spacecrafts[0]["volume"]):
         list_spacecrafts[0]["mass"] -= parcel["mass"]
         list_spacecrafts[0]["volume"] -= parcel["volume"]
-        key += 1 
+        key += 1
         c_spacecraft1[key] = parcel
         counter1 += 1
 
     elif(parcel["mass"] <= list_spacecrafts[1]["mass"]) and (parcel["volume"] <= list_spacecrafts[1]["volume"]):
-        list_spacecrafts[1]["mass"] -= parcel["mass"] 
+        list_spacecrafts[1]["mass"] -= parcel["mass"]
         list_spacecrafts[1]["volume"] -= parcel["volume"]
-        key += 1 
+        key += 1
         c_spacecraft2[key] = parcel
         counter2 += 1
     elif(parcel["mass"] <= list_spacecrafts[2]["mass"]) and (parcel["volume"] <= list_spacecrafts[2]["volume"]):
         list_spacecrafts[2]["mass"] -= parcel["mass"]
         list_spacecrafts[2]["volume"] -= parcel["volume"]
-        key += 1 
+        key += 1
         c_spacecraft3[key] = parcel
         counter3 += 1
     elif(parcel["mass"] <= list_spacecrafts[3]["mass"]) and (parcel["volume"] <= list_spacecrafts[3]["volume"]):
         list_spacecrafts[3]["mass"] -= parcel["mass"]
         list_spacecrafts[3]["volume"] -= parcel["volume"]
-        key += 1 
+        key += 1
         c_spacecraft4[key] = parcel
         counter4 += 1
     else:
         print("remaining: ", parcel)
 
 # print results
-print("\nParcels in the first spaceship:", counter1, " ->Remaining:", list_spacecrafts[0], "\n")
-print("Parcels in the second spaceship:", counter2, "->Remaining:", list_spacecrafts[1], "\n")
-print("Parcels in the third spaceship:", counter3, " ->Remaining:", list_spacecrafts[2], "\n")
-print("Parcels in the fourth spaceship:", counter4, "->Remaining:", list_spacecrafts[3], "\n")
+# print("\nParcels in the first spaceship:", counter1, " ->Remaining:", list_spacecrafts[0], "\n")
+# print("Parcels in the second spaceship:", counter2, "->Remaining:", list_spacecrafts[1], "\n")
+# print("Parcels in the third spaceship:", counter3, " ->Remaining:", list_spacecrafts[2], "\n")
+# print("Parcels in the fourth spaceship:", counter4, "->Remaining:", list_spacecrafts[3], "\n")
 
-counter = counter1 + counter2 + counter3 + counter4
+# counter = counter1 + counter2 + counter3 + counter4
+#
+# print("Total parcels :", counter)
+#
+# print("\nSpacecraft1 Cargo: ", c_spacecraft1)
+# print("\nSpacecraft2 Cargo: ",c_spacecraft2)
+# print("\nSpacecraft3 Cargo: ", c_spacecraft3)
+# print("\nSpacecraft4 Cargo: ", c_spacecraft4)
 
-print("Total parcels :", counter)
 
-print("\nSpacecraft1 Cargo: ", c_spacecraft1)
-print("\nSpacecraft2 Cargo: ",c_spacecraft2)
-print("\nSpacecraft3 Cargo: ", c_spacecraft3)
-print("\nSpacecraft4 Cargo: ", c_spacecraft4)
+####### Random Algorithm ######
 
 
+# while counter < 82 :
+#     random1 = random.choice(c_spacecraft1)
+#     random2 = random.choice(c_spacecraft4)
+
+#     tmp = random1
+#     random1 = random2
+#     random2 = tmp
+
+# print(random1)
+
+
+# print results
+# print("\nParcels in the first spaceship:", counter1, " ->Remaining:", list_spacecrafts[0], "\n")
+# print("Parcels in the second spaceship:", counter2, "->Remaining:", list_spacecrafts[1], "\n")
+# print("Parcels in the third spaceship:", counter3, " ->Remaining:", list_spacecrafts[2], "\n")
+# print("Parcels in the fourth spaceship:", counter4, "->Remaining:", list_spacecrafts[3], "\n")
+
+
+
+# print("Total parcels :", counter)
+
+# print("\nSpacecraft1 Cargo: ", c_spacecraft1)
+# print("\nSpacecraft2 Cargo: ",c_spacecraft2)
+# print("\nSpacecraft3 Cargo: ", c_spacecraft3)
+# print("\nSpacecraft4 Cargo: ", c_spacecraft4)
+
+print(Cygnus.remaining)
