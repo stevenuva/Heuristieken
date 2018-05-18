@@ -2,7 +2,7 @@
 
 # Case
 
-Our case is Space Freight. In this case we need to resupply the International Space Station. We got three cargolists that we need to send up as efficient as possible, regarding costs, amount of parcels and fuel. 
+Our case is Space Freight. In this case we need to resupply the International Space Station. We got three cargolists that we need to send up as efficient as possible, regarding costs, amount of parcels and fuel. Important is to take into consideration that each spaceship has his own characteristics regarding (base) costs, volume and payload. Making different characteristics more important at certain ships. 
 
 ## Getting started
 
@@ -16,22 +16,6 @@ The folder "data" contains the cargolists with the csv files. These lists are lo
 The folder "algorithms" contains the codes used for the specific subquestions from our case. Spacecraft_classes.py contains our created classes.  
 The folder "presentations" contains the progress presentations given over time.   
 The folder "test" contains tests for code.   
-
-## Questions
-
-### QUESTION A
-Question A asked us if it was possible to load our four spaceships with 84 parcels or more.
-Using the greedy algorithm in main.py it is possible to fit 83 parcels in the spacecrafts. For this you will need to load csv file cargolist1.
-
-### QUESTION B
-Question B asked us what the greatest amount of parcels is we can fit in our four spaceships and what it would cost taking fuel into consideration.
-By running main.py we found that we can fit 83 parcels only once. The only and thus cheapest, option cost $ 1.989.632.195,-.
-
-### Results
-| Questions |  Answers (for now) |
-|---|---|
-|A|83 parcels|
-|B|83 parcels, costs: $ 1.989.632.195,-|
 
 ## Authors
 
