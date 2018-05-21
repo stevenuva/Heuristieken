@@ -26,8 +26,8 @@ class Spacecraft:
         self.remaining_volume -= cargo_volume
         self.filled_mass = self.payload_mass - (self.remaining_mass)
         self.filled_volume = self.volume - (self.remaining_volume)
-        self.cargo = {"cargo_id": cargo_id, "cargo_weight": cargo_weight,
-                      "cargo_volume": cargo_volume}
+        self.cargo = {"id": cargo_id, "mass": cargo_weight,
+                      "volume": cargo_volume, "kg/m3": (cargo_weight / cargo_volume)}
         self.cargo_list.append(self.cargo)
         return self.remaining_mass, self.remaining_volume, self.cargo_list,
         self.filled_mass, self.filled_volume
@@ -49,10 +49,10 @@ class Spacecraft:
 
     def remove_cargo(self, cargo_id):
         for parcel in self.cargo_list:
-            if parcel.get("cargo_id") == cargo_id:
+            if parcel.get("id") == cargo_id:
                 removed_cargo = parcel
-                self.remaining_mass += parcel["cargo_weight"]
-                self.remaining_volume += parcel["cargo_volume"]
+                self.remaining_mass += parcel["mass"]
+                self.remaining_volume += parcel["volume"]
                 self.filled_mass = self.payload_mass - (self.remaining_mass)
                 self.filled_volume = self.volume - (self.remaining_volume)
                 self.cargo_list.remove(parcel)

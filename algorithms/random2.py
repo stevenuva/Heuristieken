@@ -32,38 +32,21 @@ for row in csv_list[1:]:
     cargo1_dic["kg/m3"] = cargo1_dic["mass"] / cargo1_dic["volume"]
     cargo1_list.append(cargo1_dic)
 
-# sort list on volume
-cargo1_list = sorted(cargo1_list, key=lambda
-                     parcel: parcel["volume"])
-
 # sort list on kg/m3 ratio
 cargo1_list = sorted(cargo1_list, key=lambda
                      parcel: parcel["kg/m3"])
 
-# define properties of the spacecrafts
-Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-Progress = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
-Kounotori = Spacecraft(5200, 14, 10500, 420000000, 0.71)
-Dragon = Spacecraft(6000, 10, 12200, 347000000, 0.72)
-TianZhou = Spacecraft(6500, 15, 13500, 412000000, 0.75)
-Verne_ATV = Spacecraft(7500, 48, 20500, 1080000000, 0.72)
-
-# create a list containing all the spaceships
-spacecrafts = [Cygnus, Dragon, Kounotori, Progress]
-
-# sort list on kg/m3 ratio
-spacecrafts = sorted(spacecrafts, key=lambda
-                     spacecraft: spacecraft.ratio)
-
-# remaining list
-remaining_lists = []
-# 105, 315, 371, 600
-
 
 total_len = 0
+list_length_random = []
+
+init_remaining_list = cargo1_list[83:]
+
+# slice list
+cargo1_list = cargo1_list[:83]
 
 while total_len < 85:
-
+    remaining_list = []
     # define properties of the spacecrafts
     Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
     Progress = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
@@ -92,21 +75,24 @@ while total_len < 85:
         elif 490 < parcel["kg/m3"]:
             spacecrafts[3].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
         else:
-            remaining_lists.append(parcel)
-    remaining_list = remaining_lists
+            remaining_list.append(parcel)
+    remaining_lists = remaining_list + init_remaining_list
     counter = 0
-    while(counter < 120):
+    while(counter < 200):
         counter += 1
-        parcel = random.choice(remaining_list)
+        parcel = random.choice(remaining_lists)
         spacecraft = random.choice(spacecrafts)
         if (parcel["mass"] <= spacecraft.remaining_mass) and (parcel["volume"] <= spacecraft.remaining_volume):
             spacecraft.add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+            remaining_lists.remove(parcel)
         else:
             continue
         total_len = 0
         for thespacecraft in spacecrafts:
             total_len += len(thespacecraft.cargo_list)
-        if total_len > 83:
+        if total_len > 82:
             print("length:", total_len)
             for thespacecraft in spacecrafts:
                 print(thespacecraft.cargo_list)
+    if total_len > 80:
+        print(total_len)
