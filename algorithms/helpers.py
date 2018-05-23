@@ -1,8 +1,10 @@
 import csv
 import os
+import random
+from Spacecraft_Classes import Spacecraft
 
 
-def getCargoList(cargoList):
+def getCargoList(cargoList, algorithm):
 
     # github link to retrieve CargoList1.csv if necessary
     github_link = ("https://github.com/stevenuva/minor-programmeren/blob/"
@@ -36,35 +38,35 @@ def getCargoList(cargoList):
     cargo1_list = sorted(cargo1_list, key=lambda
                          parcel: parcel["volume"])
 
-    if cargoList == "CargoList1":
+    # check for which algoritm
+    if algorithm == "random_greedy":
+        return cargo1_list
 
-        # slice list
-        cargo1_list = cargo1_list[:83]
+    if algorithm == "greedy":
+        if cargoList == "CargoList1":
 
-        # sort list on kg/m3 ratio
-        cargo1_list = sorted(cargo1_list, key=lambda
-                             parcel: parcel["kg/m3"])
+            # slice list
+            cargo1_list = cargo1_list[:83]
 
-    elif cargoList == "CargoList2":
+            # sort list on kg/m3 ratio
+            cargo1_list = sorted(cargo1_list, key=lambda
+                                 parcel: parcel["kg/m3"])
 
-        # slice list
-        cargo1_list = cargo1_list[:71]
+        elif cargoList == "CargoList2":
 
-        # sort list on kg/m3 ratio
-        cargo1_list = sorted(cargo1_list, key=lambda
-                             parcel: parcel["kg/m3"])
-    elif cargoList == "CargoList3":
+            cargo1_list = cargo1_list[:71]
+            cargo1_list = sorted(cargo1_list, key=lambda
+                                 parcel: parcel["kg/m3"])
 
-        # slice list
-        cargo1_list = cargo1_list[:83]
+        elif cargoList == "CargoList3":
 
-        # sort list on kg/m3 ratio
-        cargo1_list = sorted(cargo1_list, key=lambda
-                             parcel: parcel["kg/m3"])
+            cargo1_list = cargo1_list[:83]
+            cargo1_list = sorted(cargo1_list, key=lambda
+                                 parcel: parcel["kg/m3"])
 
-    return cargo1_list
+        return cargo1_list
 
-def remaingingCargo (cargoList, cargo1_list):
+def remaingingCargo(cargoList, cargo1_list):
     if cargoList == "CargoList1":
         remaining_list = cargo1_list[83:]
     elif cargoList == "CargoList2":
@@ -73,3 +75,22 @@ def remaingingCargo (cargoList, cargo1_list):
         remaining_list = cargo1_list[83:]
 
     return remaining_list
+
+def greedy(cargo1_list, remaining_list, spacecrafts):
+
+    # remaining list
+    remaining_list = []
+
+    for parcel in cargo1_list:
+      if (parcel["mass"] <= spacecrafts[0].remaining_mass) and (parcel["volume"] <= spacecrafts[0].remaining_volume):
+        spacecrafts[0].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+      elif (parcel["mass"] <= spacecrafts[1].remaining_mass) and (parcel["volume"] <= spacecrafts[1].remaining_volume):
+        spacecrafts[1].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+      elif (parcel["mass"] <= spacecrafts[2].remaining_mass) and (parcel["volume"] <= spacecrafts[2].remaining_volume):
+        spacecrafts[2].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+      elif (parcel["mass"] <= spacecrafts[3].remaining_mass) and (parcel["volume"] <= spacecrafts[3].remaining_volume):
+        spacecrafts[3].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+      else:
+        remaining_list.append(parcel)
+
+    return Spacecraft

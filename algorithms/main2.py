@@ -3,16 +3,15 @@ import math
 import os
 import random
 from Spacecraft_Classes import Spacecraft
-from helpers import getCargoList, remaingingCargo
+from helpers import getCargoList, remaingingCargo, greedy
 
-# choose the cargolist you want in String Format
-CargoList = "CargoList1"
+
 
 # get the cargolist
-cargo1_list = getCargoList(CargoList)
+cargo1_list = getCargoList("CargoList1", "greedy")
 
 # get the remaining list
-remaining_list = remaingingCargo(CargoList, cargo1_list)
+remaining_list = remaingingCargo("CargoList1", cargo1_list)
 
 
 # define properties of the spacecrafts
@@ -30,20 +29,8 @@ spacecrafts = [Cygnus, Dragon, Kounotori, Progress]
 spacecrafts = sorted(spacecrafts, key=lambda
                      spacecraft: spacecraft.ratio)
 
-# remaining list
-remaining_list = []
-
-for parcel in cargo1_list:
-  if (parcel["mass"] <= spacecrafts[0].remaining_mass) and (parcel["volume"] <= spacecrafts[0].remaining_volume):
-    spacecrafts[0].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-  elif (parcel["mass"] <= spacecrafts[1].remaining_mass) and (parcel["volume"] <= spacecrafts[1].remaining_volume):
-    spacecrafts[1].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-  elif (parcel["mass"] <= spacecrafts[2].remaining_mass) and (parcel["volume"] <= spacecrafts[2].remaining_volume):
-    spacecrafts[2].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-  elif (parcel["mass"] <= spacecrafts[3].remaining_mass) and (parcel["volume"] <= spacecrafts[3].remaining_volume):
-    spacecrafts[3].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-  else:
-    remaining_list.append(parcel)
+# choose algorithm function (greedy(), hill_climber(), random_greedy()
+Spacecraft = greedy(cargo1_list, remaining_list, spacecrafts)
 
 # check how many parcels are taken with
 counter = 0
@@ -51,6 +38,8 @@ total_cost = 0
 for spacecraft in spacecrafts:
   counter += len(spacecraft.cargo_list)
   total_cost += (spacecraft.cost())
+
+
 print("Results:")
 print("A) Number of parcel we can take with us with the greedy algorithm:", counter, "parcels")
 print("B) Minimal total cost when taking 83 parcels to space (accounted for different FTW) : $" + str(total_cost))
