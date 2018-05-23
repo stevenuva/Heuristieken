@@ -65,7 +65,7 @@ counter5 = 0
 total_more_limit = 0
 counter = 0
 
-while counter < 10000:
+while counter < 1000000:
     remaining_list = []
     total_cost = 0
 
@@ -98,7 +98,7 @@ while counter < 10000:
             spacecrafts[0].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
             counter1 += 1
 
-        elif (spacecrafts[1].ratio - 10 < parcel["kg/m3"]) and (parcel["kg/m3"] < spacecrafts[1].ratio + 10):
+        elif (spacecrafts[1].ratio - 15 < parcel["kg/m3"]) and (parcel["kg/m3"] < spacecrafts[1].ratio + 7):
             spacecrafts[1].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
             counter2 += 1
 
@@ -112,10 +112,10 @@ while counter < 10000:
             remaining_list.append(parcel)
     remaining_lists = remaining_list[:]
 
-    print(counter1)
-    print(counter2)
-    print(counter3)
-    print(counter4)
+    # print(counter1)
+    # print(counter2)
+    # print(counter3)
+    # print(counter4)
 
     while(counter < 300):
         counter += 1
