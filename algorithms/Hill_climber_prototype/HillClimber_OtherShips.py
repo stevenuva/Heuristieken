@@ -1,7 +1,8 @@
 import csv
 import os
 import random
-from Spacecraft_Classes import Spacecraft
+from Classes import Spacecraft
+import copy
 
 # github link to retrieve CargoList1.csv if necessary
 github_link = ("https://github.com/stevenuva/minor-programmeren/blob/"
@@ -36,7 +37,7 @@ cargo1_list = sorted(cargo1_list, key=lambda
                      parcel: parcel["volume"])
 
 # slice list
-cargo1_list = cargo1_list[:100]
+cargo1_list = cargo1_list[:83]
 
 # of
 # cargo1_list = cargo1_list[:71]
@@ -100,7 +101,7 @@ while counter < 84:
     # if repeat > 10000:
     #     randomChoice += 1
 
-    # Cygnus property
+    # Random spacecraft1
     r_spacecraft1 = random.choice(spacecrafts)
 
     # random spacecraft

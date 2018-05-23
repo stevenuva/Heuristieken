@@ -4,12 +4,14 @@ import os
 import random
 from Spacecraft_Classes import Spacecraft
 
+CargoList1 = "CargoList2"
+
 # github link to retrieve CargoList1.csv if necessary
 github_link = ("https://github.com/stevenuva/minor-programmeren/blob/"
-               "master/CargoList1.csv")
+               "master/"+ CargoList1 +".csv")
 
 # path to the csv_file
-csv_file = "./data/CargoList1.csv"
+csv_file = "./data/"+ CargoList1 + ".csv"
 
 # check if user has csv at the right path
 for path in [csv_file]:
