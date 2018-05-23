@@ -1,10 +1,10 @@
-import csv
-import math
-import os
-import random
-import json
-from Spacecraft_Classes import Spacecraft
 import copy
+import csv
+import json
+import math
+import random
+import os
+from Spacecraft_Classes import Spacecraft
 
 # github link to retrieve CargoList1.csv if necessary
 github_link = ("https://github.com/stevenuva/minor-programmeren/blob/"
@@ -83,6 +83,8 @@ total_remaining_list = remaining_list + leftover_list
 spacecrafts.append(total_remaining_list)
 complete_list = spacecrafts[:]
 previous_len = 0
+number_found = 0
+previous_cost = 0
 
 """"
 HILLCLIMBER
@@ -93,13 +95,14 @@ while total_len < 90:
 
     #  boolean which can turn true if the hill climber wants it to
     accept = False
+    cheaper = False
+    longer = False
 
     # copy all list incase hill climber wants to go back
-    alt_Cygnus = copy.copy(Cygnus.cargo_list)
-    alt_Dragon = copy.copy(Dragon.cargo_list)
-    alt_Kounotori = copy.copy(Kounotori.cargo_list)
-    alt_Progress = copy.copy(Progress.cargo_list)
-    alt_total_remaining_list = copy.copy(total_remaining_list)
+    alt_Cygnus = copy.deepcopy(Cygnus.cargo_list)
+    alt_Dragon = copy.deepcopy(Dragon.cargo_list)
+    alt_Kounotori = copy.deepcopy(Kounotori.cargo_list)
+    alt_Progress = copy.deepcopy(Progress.cargo_list)
 
     # choose random object
     random_object = random.choice(complete_list)
@@ -119,7 +122,7 @@ while total_len < 90:
                 parcel1 = random.choice(random_object)
 
                 # add package to the spacecraft is possible and change boolean to True to accept the change
-                if (parcel1["mass"] <= random_object2.remaining_mass) and (parcel1["volume"] <= random_object2.remaining_volume):
+                if (parcel1["mass"] < random_object2.remaining_mass) and (parcel1["volume"] < random_object2.remaining_volume):
                     random_object2.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
                     accept = True
                     random_object.remove(parcel1)
@@ -130,9 +133,9 @@ while total_len < 90:
                     random_object2.remove_cargo(parcel2["id"])
 
                     # if situation acceptable, accept the new situation
-                    if (parcel1["mass"] <= random_object2.remaining_mass) and (parcel1["volume"] <= random_object2.remaining_volume):
+                    if (parcel1["mass"] < random_object2.remaining_mass) and (parcel1["volume"] < random_object2.remaining_volume):
                         random_object2.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
-                        if random_object2.remaining_volume > 0.6:
+                        if random_object2.remaining_volume > 0:
                             accept = True
                             random_object.append(parcel2)
                             random_object.remove(parcel1)
@@ -148,7 +151,7 @@ while total_len < 90:
                 parcel1 = random.choice(random_object)
 
                 # add package to the spacecraft is possible and change boolean to True to accept the change
-                if (parcel1["mass"] <= random_object2.remaining_mass) and (parcel1["volume"] <= random_object2.remaining_volume):
+                if (parcel1["mass"] < random_object2.remaining_mass) and (parcel1["volume"] < random_object2.remaining_volume):
                     random_object2.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
                     accept = True
                     random_object.remove(parcel1)
@@ -158,9 +161,9 @@ while total_len < 90:
                     parcel2 = random.choice(random_object2.cargo_list)
                     random_object2.remove_cargo(parcel2["id"])
 
-                    if (parcel1["mass"] <= random_object2.remaining_mass) and (parcel1["volume"] <= random_object2.remaining_volume):
+                    if (parcel1["mass"] < random_object2.remaining_mass) and (parcel1["volume"] < random_object2.remaining_volume):
                         random_object2.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
-                        if random_object2.remaining_mass > 60:
+                        if random_object2.remaining_mass > 0:
                             accept = True
                             random_object.remove(parcel1)
                             random_object.append(parcel2)
@@ -168,35 +171,117 @@ while total_len < 90:
                     else:
                         random_object2.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
 
-        # check if hill climber accepts the change
-        print(accept)
+        elif type(random_object2) == list:
+            if random_object == Cygnus:
+                parcel2 = random.choice(random_object2)
 
-        # double-check total length cargo float and remaining weight and volume
-        total_len = 0
-        list_of_cargo_dict = []
-        for thespacecraft in original_spacecrafts:
-            if type(thespacecraft) == list:
-                continue
-            total_len += len(thespacecraft.cargo_list)
-            print(thespacecraft.remaining_volume)
-            print(thespacecraft.remaining_mass)
-            list_of_cargo_dict.append(thespacecraft.cargo_list)
-        # print(total_len)
+                if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                    random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                    accept = True
+                    random_object2.remove(parcel2)
 
-        # if new situation is better accept new situation
-        if accept == True and (total_len >= previous_len):
-            previous_len = total_len
+                else:
+                    parcel1 = random.choice(random_object.cargo_list)
+                    random_object.remove_cargo(parcel1["id"])
 
-        # if new situation is not better return to old situation
-        if (accept == False) or (total_len < previous_len):
-            Cygnus.cargo_list = alt_Cygnus
-            Dragon.cargo_list = alt_Dragon
-            Kounotori.cargo_list = alt_Kounotori
-            Progress.cargo_list = alt_Progress
-            total_remaining_list = alt_total_remaining_list
+                    if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                        random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                        if random_object.remaining_mass > 0:
+                            accept = True
+                            random_object2.append(parcel1)
+                            random_object2.remove(parcel2)
 
-        print(total_len)
-        # send result to a textfile
-        if total_len > 84:
-            with open("outputfile (" + str(total_len) + ").txt", 'w') as output:
-                json.dump(list_of_cargo_dict, output)
+                    else:
+                        random_object.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
+            else:
+                parcel2 = random.choice(random_object2)
+
+                if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                    random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                    accept = True
+                    random_object2.remove(parcel2)
+
+                else:
+                    parcel1 = random.choice(random_object.cargo_list)
+                    random_object.remove_cargo(parcel1["id"])
+
+                    if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                        random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                        if random_object.remaining_volume > 0:
+                            accept = True
+                            random_object2.append(parcel1)
+                            random_object2.remove(parcel2)
+
+                    else:
+                        random_object.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
+
+        else:
+            parcel1 = random.choice(random_object.cargo_list)
+            parcel2 = random.choice(random_object2.cargo_list)
+
+            if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                random_object2.remove_cargo(parcel2["id"])
+                if random_object.remaining_volume > 0:
+                    accept = True
+                else:
+                    accept = False
+
+            if (parcel1["mass"] < random_object2.remaining_mass) and (parcel1["volume"] < random_object2.remaining_volume):
+                random_object2.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
+                random_object.remove_cargo(parcel1["id"])
+                if random_object2.remaining_volume > 0:
+                    accept = True
+                else:
+                    accept = False
+
+    # double-check total length cargo float and remaining weight and volume
+    total_len = 0
+    list_of_cargo_dict = []
+    total_cost = 0
+    for thespacecraft in original_spacecrafts:
+        if type(thespacecraft) == list:
+            continue
+        # print(thespacecraft.remaining_volume)
+        total_cost += thespacecraft.cost()
+        total_len += len(thespacecraft.cargo_list)
+        if (thespacecraft.remaining_volume < 0):
+            accept = False
+        if (thespacecraft.remaining_mass < 0):
+            accept = False
+        if thespacecraft.filled_volume > thespacecraft.volume:
+            accept = False
+        list_of_cargo_dict.append(thespacecraft.cargo_list)
+
+    # if new situation is better accept new situation
+    if accept == True and (total_len >= previous_len or total_cost < previous_cost):
+        previous_len = total_len
+        previous_cost = total_cost
+        cheaper = True
+        if type(random_object) != list:
+            random_object.cargo_list = random_object.cargo_list
+        if type(random_object2) != list:
+            random_object2.cargo_list = random_object2.cargo_list
+    else:
+        accept == False
+
+    # if new situation is not better return to old situation
+    if (accept == False) or (total_len < previous_len):
+        Cygnus.cargo_list = alt_Cygnus
+        Dragon.cargo_list = alt_Dragon
+        Kounotori.cargo_list = alt_Kounotori
+        Progress.cargo_list = alt_Progress
+
+    print("Length filled + unfilled: ", len(Cygnus.cargo_list) + len(Dragon.cargo_list) + len(Kounotori.cargo_list) + len(Progress.cargo_list) + len(total_remaining_list))
+    print("Parecels filled: ", total_len)
+    print("Parecels cost: ", total_cost)
+
+    # send result to a textfile
+    if (total_len > 82) and (accept == True) and (cheaper == True):
+        with open("outputfile (" + str(number_found) + "x) (" + str(total_len) + ").txt", 'w') as output:
+            number_found += 1
+            json.dump(list_of_cargo_dict, output)
+
+    # check if hill climber accepts the change
+    print(accept)
+    print("---------------------------")

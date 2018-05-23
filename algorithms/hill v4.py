@@ -94,7 +94,6 @@ while total_len < 100:
     alt_Dragon = copy.copy(Dragon.cargo_list)
     alt_Kounotori = copy.copy(Kounotori.cargo_list)
     alt_Progress = copy.copy(Progress.cargo_list)
-    alt_total_remaining_list = copy.copy(total_remaining_list)
 
     # choose random object
     random_object = random.choice(complete_list)
@@ -220,8 +219,10 @@ while total_len < 100:
             if type(thespacecraft) == list:
                 continue
             total_len += len(thespacecraft.cargo_list)
-            print(thespacecraft.remaining_volume)
-            print(thespacecraft.remaining_mass)
+            if (thespacecraft.remaining_volume < 0):
+                accept = False
+            if (thespacecraft.remaining_mass < 0):
+                accept = False
             list_of_cargo_dict.append(thespacecraft.cargo_list)
         # print(total_len)
 
@@ -235,9 +236,8 @@ while total_len < 100:
             Dragon.cargo_list = alt_Dragon
             Kounotori.cargo_list = alt_Kounotori
             Progress.cargo_list = alt_Progress
-            total_remaining_list = alt_total_remaining_list
 
-        print(total_len)
+        print(total_len + len(total_remaining_list))
         # send result to a textfile
         if total_len > 84:
             with open("outputfile (" + str(total_len) + ").txt", 'w') as output:
