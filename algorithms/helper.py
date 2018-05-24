@@ -43,7 +43,7 @@ def load_csv_cargolist(cargolist):
     return cargo_list
 
 
-def sort_and_slice(cargolist, number, mass = 0):
+def sort_and_slice(cargolist, number, mass=0):
     """Function to sort list on kg/m3 and slice a list given a number"""
 
     remaining_list = cargolist[int(number):]
@@ -54,7 +54,7 @@ def sort_and_slice(cargolist, number, mass = 0):
     if mass > 0:
         # sort list on kg/m3 ratio
         cargolist = sorted(cargolist, key=lambda
-                            parcel: parcel["mass"])
+                           parcel: parcel["mass"])
 
         cargolist = sorted(cargolist[:int(mass)], key=lambda
                            parcel: parcel["kg/m3"])
