@@ -3,15 +3,17 @@ import math
 import os
 import random
 from Spacecraft_Classes import Spacecraft
-from helpers import getCargoList, remaingingCargo, greedy
+from helpers import getCargoList, greedy, sliceList
+from timeit import default_timer as timer
+import time
 
-
+start = timer()
 
 # get the cargolist
-cargo1_list = getCargoList("CargoList1", "greedy")
+cargo1_list = getCargoList("CargoList2", "greedy")
 
 # get the remaining list
-remaining_list = remaingingCargo("CargoList1", cargo1_list)
+remaining_list = sliceList("CargoList2", cargo1_list, 71)
 
 
 # define properties of the spacecrafts
@@ -48,3 +50,7 @@ print(len(Cygnus.cargo_list))
 print(len(Progress.cargo_list))
 print(len(Kounotori.cargo_list))
 print(len(Dragon.cargo_list))
+
+end = timer()
+
+print("Total runtime: ", end - start,"sec")

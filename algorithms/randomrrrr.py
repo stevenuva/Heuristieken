@@ -3,75 +3,43 @@ import math
 import os
 import random
 import json
-import matplotlib.pyplot as plt
 from Spacecraft_Classes import Spacecraft
-from helpers import getCargoList
+from helper import load_csv_cargolist, sort_and_slice, results, greedy_filling, define_spacecrafts, preload_spacecrafts, hill_climber
+
 from timeit import default_timer as timer
 import time
 
 start = timer()
 
 # timeout variable can be omitted, if you use specific value in the while condition
-timeout = 10  # [seconds]
+timeout = 500000  # [seconds]
 
 timeout_start = time.time()
 
-# choose the cargolist you want in String Format
-# "CargoList1" // "CargoList2" // "CargoList3"
-CargoList = "CargoList1"
+cargo1_list = load_csv_cargolist("CargoList2")
 
-# choose which algorithm you are using
-# "greedy" // "random" // "hill_climber"
-<<<<<<< HEAD
-algorithm = "random_greedy"
-=======
-algorithm = "random"
->>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
+combined_list = sort_and_slice(cargo1_list, 96, 93)
 
-cargo1_list = getCargoList(CargoList, algorithm)
-
-cargo1_list = cargo1_list[:96]
-remain1 = cargo1_list[96:]
-
-cargo1_list = sorted(cargo1_list, key=lambda
-                     parcel: parcel["mass"])
-
-cargo1_list = cargo1_list[:93]
-remain2 = cargo1_list[93:]
-
-# sort list on kg/m3 ratio
-cargo1_list = sorted(cargo1_list, key=lambda
-                     parcel: parcel["kg/m3"])
+cargo1_list = combined_list[0][:]
+remain1 = combined_list[1]
 
 total_len = 0
 list_length_random = []
 
 previous_cost = 0
 previous_len = 0
-counter1 = 0
-counter2 = 0
+counter5 = 0
 counterTime = 0
+count = 0
 
 total_more_limit = 0
 
-<<<<<<< HEAD
-total_len = 0
-total_len_list = []
 
-counters = 0
-counter_list = []
-
-
-# while counter2 < 100000:
-while time.time() < timeout_start + timeout:
-    remaining_list = []
-=======
-# while counter2 < 100000:
+# while count < 1:
 while time.time() < timeout_start + timeout:
     remaining_list = []
 
->>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
-    counter2 += 1
+    count += 1
 
     # define properties of the spacecrafts
     Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
@@ -85,6 +53,7 @@ while time.time() < timeout_start + timeout:
     Progress.cargo_list = []
     Kounotori.cargo_list = []
     Dragon.cargo_list = []
+
     # create a list containing all the spaceships
     spacecrafts = [Cygnus, Dragon, Kounotori, Progress]
 
@@ -92,33 +61,26 @@ while time.time() < timeout_start + timeout:
     spacecrafts = sorted(spacecrafts, key=lambda
                          spacecraft: spacecraft.ratio)
 
+    counter1 = 0
+    counter2 = 0
+    counter3 = 0
+    counter4 = 0
 
-    for parcel in cargo1_list:
-        if parcel["kg/m3"] < (spacecrafts[0].ratio + 100):
-            spacecrafts[0].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+    remaining_list = []
+    boundaries = [130, 20, 45, 150]
 
-        elif (spacecrafts[1].ratio - 15 < parcel["kg/m3"]) and (parcel["kg/m3"] < spacecrafts[1].ratio + 10):
-            spacecrafts[1].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-<<<<<<< HEAD
-=======
+    preload_spacecrafts(cargo1_list, spacecrafts, remaining_list, boundaries)
 
->>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
+    remaining_lists = remaining_list[:] + remain1
 
-        elif ((spacecrafts[2].ratio - 19) < parcel["kg/m3"]) and (parcel["kg/m3"] < (spacecrafts[2].ratio + 19)):
-            spacecrafts[2].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-
-        elif ((spacecrafts[3].ratio - 250) < parcel["kg/m3"]):
-            spacecrafts[3].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
-
-        else:
-            remaining_list.append(parcel)
-
-    remaining_lists = remaining_list[:] + remain1 + remain2
+    # print("C: ", counter1)
+    # print("P: ", counter2)
+    # print("K: ", counter3)
+    # print("D: ", counter4)
 
     counter = 0
 
     while(counter < 300):
-
         counter += 1
         total_cost = 0
         parcel = random.choice(remaining_lists)
@@ -130,50 +92,25 @@ while time.time() < timeout_start + timeout:
         else:
             continue
 
-<<<<<<< HEAD
-        total_len = 0
-
-        for thespacecraft in spacecrafts:
-            total_len += len(thespacecraft.cargo_list)
-            total_cost += thespacecraft.cost()
-
-        total_len_list.append(total_len)
-        counters += 1
-        counter_list.append(counters)
-
-    if total_len > 82:
-        list_of_cargo_dict = []
-
-        if counterTime < 1:
-            end_timefirst = timer()
-            print("First 83 found in: ", end_timefirst - start)
-            counterTime += 1
-
-        counter1 += 1
-        print(counter1)
-
-        for thespacecraft in spacecrafts:
-=======
     total_len = 0
 
     for thespacecraft in spacecrafts:
         total_len += len(thespacecraft.cargo_list)
         total_cost += thespacecraft.cost()
 
-    if total_len > 82:
+    if total_len > 71:
         list_of_cargo_dict = []
 
         if counterTime < 1:
             end_timefirst = timer()
-            print("First 83 found in: ", end_timefirst - start)
+            print("First option found in: ", end_timefirst - start)
             counterTime += 1
 
-        counter1 += 1
-        print(counter1)
+        counter5 += 1
+        print("findings: ", counter5)
 
         for thespacecraft in spacecrafts:
->>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
-            print(list_of_cargo_dict.append(thespacecraft.cargo_list))
+            list_of_cargo_dict.append(thespacecraft.cargo_list)
 
         if previous_len < total_len or total_cost < previous_cost:
 
@@ -201,15 +138,6 @@ while time.time() < timeout_start + timeout:
                 json.dump("Cygnus_cost: " + str(Cygnus.cost()), output)
                 json.dump(" - ", output)
 
-<<<<<<< HEAD
-                json.dump("Progress_cost: " + str(Progress.cost()), output)
-                json.dump(" - ", output)
-
-                json.dump("Kounotori_cost: " + str(Kounotori.cost()), output)
-                json.dump(" - ", output)
-
-                json.dump("Dragon_cost: " + str(Dragon.cost()), output)
-=======
                 json.dump("Progress_cost: "+ str(Progress.cost()), output)
                 json.dump(" - ", output)
 
@@ -217,7 +145,6 @@ while time.time() < timeout_start + timeout:
                 json.dump(" - ", output)
 
                 json.dump("Dragon_cost: "+ str(Dragon.cost()), output)
->>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
                 json.dump(" - ", output)
 
                 # json.dump("Total cost: ", str(total_cost), output)
@@ -228,10 +155,3 @@ while time.time() < timeout_start + timeout:
 end = timer()
 
 print("Total runtime: ", end - start)
-<<<<<<< HEAD
-
-plt.plot(counter_list, total_len_list)
-
-plt.show()
-=======
->>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
