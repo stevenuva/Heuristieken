@@ -7,6 +7,7 @@ import os
 import random
 from helper import load_csv_cargolist, sort_and_slice, results, greedy_filling, define_spacecrafts, preload_spacecrafts, hill_climber
 from Spacecraft_Classes import Spacecraft
+from hill_v4 import hill_climber
 
 # load the first cargo list
 cargo1_list = load_csv_cargolist("CargoList1")
@@ -39,7 +40,8 @@ remaining_list = combined_list[1][:]
 boundaries_cargo1 = [75, 15, 19, 100]
 boundaries_cargo2 = [130, 20, 45, 150]
 
-preload_spacecrafts(cargo1_list, spacecrafts, remaining_list, boundaries_cargo1)
+preload_spacecrafts(cargo1_list, spacecrafts, remaining_list)
 
 # complete_list = spacecrafts + remaining_list
-# hill_climber(complete_list, 84)
+hill_climber("CargoList1", 83, boundaries_cargo1)
+# hill_climber("CargoList2", 96, boundaries_cargo2)
