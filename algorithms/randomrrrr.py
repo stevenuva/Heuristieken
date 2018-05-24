@@ -22,7 +22,11 @@ CargoList = "CargoList1"
 
 # choose which algorithm you are using
 # "greedy" // "random" // "hill_climber"
+<<<<<<< HEAD
 algorithm = "random_greedy"
+=======
+algorithm = "random"
+>>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
 
 cargo1_list = getCargoList(CargoList, algorithm)
 
@@ -50,6 +54,7 @@ counterTime = 0
 
 total_more_limit = 0
 
+<<<<<<< HEAD
 total_len = 0
 total_len_list = []
 
@@ -60,6 +65,12 @@ counter_list = []
 # while counter2 < 100000:
 while time.time() < timeout_start + timeout:
     remaining_list = []
+=======
+# while counter2 < 100000:
+while time.time() < timeout_start + timeout:
+    remaining_list = []
+
+>>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
     counter2 += 1
 
     # define properties of the spacecrafts
@@ -81,12 +92,17 @@ while time.time() < timeout_start + timeout:
     spacecrafts = sorted(spacecrafts, key=lambda
                          spacecraft: spacecraft.ratio)
 
+
     for parcel in cargo1_list:
         if parcel["kg/m3"] < (spacecrafts[0].ratio + 100):
             spacecrafts[0].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
 
         elif (spacecrafts[1].ratio - 15 < parcel["kg/m3"]) and (parcel["kg/m3"] < spacecrafts[1].ratio + 10):
             spacecrafts[1].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
+<<<<<<< HEAD
+=======
+
+>>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
 
         elif ((spacecrafts[2].ratio - 19) < parcel["kg/m3"]) and (parcel["kg/m3"] < (spacecrafts[2].ratio + 19)):
             spacecrafts[2].add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
@@ -114,6 +130,7 @@ while time.time() < timeout_start + timeout:
         else:
             continue
 
+<<<<<<< HEAD
         total_len = 0
 
         for thespacecraft in spacecrafts:
@@ -136,6 +153,26 @@ while time.time() < timeout_start + timeout:
         print(counter1)
 
         for thespacecraft in spacecrafts:
+=======
+    total_len = 0
+
+    for thespacecraft in spacecrafts:
+        total_len += len(thespacecraft.cargo_list)
+        total_cost += thespacecraft.cost()
+
+    if total_len > 82:
+        list_of_cargo_dict = []
+
+        if counterTime < 1:
+            end_timefirst = timer()
+            print("First 83 found in: ", end_timefirst - start)
+            counterTime += 1
+
+        counter1 += 1
+        print(counter1)
+
+        for thespacecraft in spacecrafts:
+>>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
             print(list_of_cargo_dict.append(thespacecraft.cargo_list))
 
         if previous_len < total_len or total_cost < previous_cost:
@@ -164,6 +201,7 @@ while time.time() < timeout_start + timeout:
                 json.dump("Cygnus_cost: " + str(Cygnus.cost()), output)
                 json.dump(" - ", output)
 
+<<<<<<< HEAD
                 json.dump("Progress_cost: " + str(Progress.cost()), output)
                 json.dump(" - ", output)
 
@@ -171,6 +209,15 @@ while time.time() < timeout_start + timeout:
                 json.dump(" - ", output)
 
                 json.dump("Dragon_cost: " + str(Dragon.cost()), output)
+=======
+                json.dump("Progress_cost: "+ str(Progress.cost()), output)
+                json.dump(" - ", output)
+
+                json.dump("Kounotori_cost: "+ str(Kounotori.cost()), output)
+                json.dump(" - ", output)
+
+                json.dump("Dragon_cost: "+ str(Dragon.cost()), output)
+>>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
                 json.dump(" - ", output)
 
                 # json.dump("Total cost: ", str(total_cost), output)
@@ -181,7 +228,10 @@ while time.time() < timeout_start + timeout:
 end = timer()
 
 print("Total runtime: ", end - start)
+<<<<<<< HEAD
 
 plt.plot(counter_list, total_len_list)
 
 plt.show()
+=======
+>>>>>>> 588a24ea46adb0b49a8acbada4324555392b2dff
