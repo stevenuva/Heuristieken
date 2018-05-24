@@ -86,12 +86,16 @@ def greedy_filling(cargolists, spacecrafts):
 
 def results(spacecrafts):
     """Calculate the total cost and length of a list of spacecrafts"""
+    list_cargo_dicts = []
+    results = {}
     total_len = 0
     total_cost = 0
     for spacecraft in spacecrafts:
-        total_len += len(spacecraft.cargo_list)
-        total_cost += (spacecraft.cost())
-    results = {"length": str(total_len), "cost": str(total_cost)}
+        if type(spacecraft) != list:
+            total_len += len(spacecraft.cargo_list)
+            total_cost += (spacecraft.cost())
+            list_cargo_dicts.append(spacecraft.cargo_list)
+    results = {"length": (total_len), "cost": (total_cost), "total_filled": (list_cargo_dicts)}
     return results
 
 
@@ -120,27 +124,27 @@ def define_spacecrafts():
     return spacecrafts
 
 
-def preload_spacecrafts(cargolist, spacecrafts, remaining_list):
+def preload_spacecrafts(cargolist, spacecrafts, remaining_list, boundaries=[75, 15, 19, 100]):
     """
     Initial load before start of an algorithm
     Hardcoded values found with experimenting
     """
     for parcel in cargolist:
-        if parcel["kg/m3"] < (spacecrafts[0].ratio + 75):
+        if parcel["kg/m3"] < (spacecrafts[0].ratio + boundaries[0]):
             spacecrafts[0].add_cargo(parcel["id"], parcel["mass"],
                                      parcel["volume"])
 
-        elif (spacecrafts[1].ratio - 15 < parcel["kg/m3"] and parcel["kg/m3"]
-              < spacecrafts[1].ratio + 15):
+        elif (spacecrafts[1].ratio - boundaries[1] < parcel["kg/m3"] and parcel["kg/m3"]
+              < spacecrafts[1].ratio + boundaries[1]):
             spacecrafts[1].add_cargo(parcel["id"], parcel["mass"],
                                      parcel["volume"])
 
-        elif (spacecrafts[2].ratio - 19 < parcel["kg/m3"] and parcel["kg/m3"]
-              < spacecrafts[2].ratio + 19):
+        elif (spacecrafts[2].ratio - boundaries[2] < parcel["kg/m3"] and parcel["kg/m3"]
+              < spacecrafts[2].ratio + boundaries[2]):
             spacecrafts[2].add_cargo(parcel["id"], parcel["mass"],
                                      parcel["volume"])
 
-        elif (spacecrafts[3].ratio - 100 < parcel["kg/m3"]):
+        elif (spacecrafts[3].ratio - boundaries[3] < parcel["kg/m3"]):
             spacecrafts[3].add_cargo(parcel["id"], parcel["mass"],
                                      parcel["volume"])
 
@@ -221,4 +225,4 @@ def swap_between_spacecraft(random_object, random_object2):
         else:
             accept = False
 
-        return accept
+    return accept
