@@ -3,8 +3,7 @@ import csv
 import json
 import random
 import matplotlib.pyplot as plt
-from helper import load_csv_cargolist, swap_list_spacecraft, preload_spacecrafts, sort_and_slice
-from helper import swap_between_spacecraft, results
+import helper as hlp
 from Spacecraft_Classes import Spacecraft
 
 
@@ -15,10 +14,10 @@ def hill_climber(cargo_list_csv, slice, boundaries, number):
     """
 
     # load the first cargo list
-    cargo1_list = load_csv_cargolist(str(cargo_list_csv))
+    cargo1_list = hlp.load_csv_cargolist(str(cargo_list_csv))
 
     # slice list and sort it on kg/m3 ratio
-    combined_list = sort_and_slice(cargo1_list, slice)
+    combined_list = hlp.sort_and_slice(cargo1_list, slice)
     cargo1_list = combined_list[0][:]
     remaining_list = combined_list[1][:]
 
@@ -38,7 +37,7 @@ def hill_climber(cargo_list_csv, slice, boundaries, number):
                          spacecraft: spacecraft.ratio)
 
     # experiment: start hill climber with some cargo already pre-loaded
-    preload_spacecrafts(cargo1_list, spacecrafts, remaining_list, boundaries)
+    hlp.preload_spacecrafts(cargo1_list, spacecrafts, remaining_list, boundaries)
 
     # organize data with list
     # make copy of list also for the hill climber
@@ -79,16 +78,16 @@ def hill_climber(cargo_list_csv, slice, boundaries, number):
             # if random object is a list, it is the list containing the remaining parcels
             # loop to load these remaining parcels into a random spacecraft
             if type(random_object) == list:
-                accept = swap_list_spacecraft(random_object, random_object2)
+                accept = hlp.swap_list_spacecraft(random_object, random_object2)
 
             elif type(random_object2) == list:
-                accept = swap_list_spacecraft(random_object2, random_object)
+                accept = hlp.swap_list_spacecraft(random_object2, random_object)
 
             else:
-                accept = swap_between_spacecraft(random_object, random_object2)
+                accept = hlp.swap_between_spacecraft(random_object, random_object2)
 
         # double-check total length cargo float and remaining weight and volume
-        result_dic = results(spacecrafts)
+        result_dic = hlp.results(spacecrafts)
         total_len = result_dic["length"]
         total_cost = result_dic["cost"]
         total_filled = result_dic["total_filled"]

@@ -2,9 +2,22 @@ import matplotlib.pyplot as plt
 import helper as hlp
 from Spacecraft_Classes import Spacecraft
 from hill_climber import hill_climber
+from random_greedy import random_greedy
 
 # question = input("What question do you want to see?")
 # print(question)
+
+# boundaries needed for pre loading cargolists
+boundaries_cargo1 = [100, 15, 19, 250]
+boundaries_cargo2 = [130, 20, 45, 150]
+
+# highest length found with the random greedy was 72
+# lowest cost found with 72 with the random greedy was 2001731335 dollar
+print("random_greedy")
+result_rnd_greedy_1 = random_greedy("CargoList1", 83, 0, 1000, boundaries_cargo1)
+result_rnd_greedy_2 = random_greedy("CargoList2", 96, 93, 1000, boundaries_cargo2)
+print(result_rnd_greedy_1)
+print(result_rnd_greedy_2)
 
 #### QUESTIONS A, B, C #################################
 
@@ -29,10 +42,6 @@ greedy_results = hlp.results(spacecrafts)
 print("Results A and B with a Greedy Algorithm:")
 print("A) Number of parcel we can take with us with the greedy algorithm:", str(greedy_results["length"]) + " parcels")
 print("B) Minimal total cost when taking 83 parcels to space (accounted for different FTW) : $" + str(greedy_results["cost"]))
-
-# boundaries needed for pre loading cargolists
-boundaries_cargo1 = [75, 15, 19, 100]
-boundaries_cargo2 = [130, 20, 45, 150]
 
 # returns result of running a hill climber 1000 times
 result_hc_1 = hill_climber("CargoList1", 83, boundaries_cargo1, 1000)
