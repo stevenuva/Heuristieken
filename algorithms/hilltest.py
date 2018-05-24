@@ -5,7 +5,7 @@ import math
 import random
 import os
 import matplotlib.pyplot as plt
-from helper import load_csv_cargolist, preload_spacecrafts, sort_and_slice, swap_list_spacecraft
+from helper import load_csv_cargolist, swap_list_spacecraft, preload_spacecrafts, sort_and_slice
 from Spacecraft_Classes import Spacecraft
 
 # load the first cargo list
@@ -52,12 +52,13 @@ total_len_list = []
 counter_list = []
 counter = 0
 
-while total_len < 82:  # total_len < 90:
+while total_len < 81:  # total_len < 90:
     counter += 1
     counter_list.append(counter)
     #  boolean which can turn true if the hill climber wants it to
     accept = False
     cheaper = False
+    longer = False
 
     # copy all list incase hill climber wants to go back
     alt_Cygnus = copy.deepcopy(Cygnus.cargo_list)
@@ -75,30 +76,51 @@ while total_len < 82:  # total_len < 90:
         # if random object is a list, it is the list containing the remaining parcels
         # loop to load these remaining parcels into a random spacecraft
         if type(random_object) == list:
-            # select random package from the list
             swap_list_spacecraft(random_object, random_object2)
 
         elif type(random_object2) == list:
-            parcel2 = random.choice(random_object2)
-
-            if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
-                random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
-                accept = True
-                random_object2.remove(parcel2)
-
-            else:
-                parcel1 = random.choice(random_object.cargo_list)
-                random_object.remove_cargo(parcel1["id"])
+            if random_object == Cygnus:
+                parcel2 = random.choice(random_object2)
 
                 if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
                     random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
-                    if random_object.remaining_volume > 0:
-                        accept = True
-                        random_object2.append(parcel1)
-                        random_object2.remove(parcel2)
+                    accept = True
+                    random_object2.remove(parcel2)
 
                 else:
-                    random_object.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
+                    parcel1 = random.choice(random_object.cargo_list)
+                    random_object.remove_cargo(parcel1["id"])
+
+                    if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                        random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                        if random_object.remaining_mass > 0:
+                            accept = True
+                            random_object2.append(parcel1)
+                            random_object2.remove(parcel2)
+
+                    else:
+                        random_object.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
+            else:
+                parcel2 = random.choice(random_object2)
+
+                if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                    random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                    accept = True
+                    random_object2.remove(parcel2)
+
+                else:
+                    parcel1 = random.choice(random_object.cargo_list)
+                    random_object.remove_cargo(parcel1["id"])
+
+                    if (parcel2["mass"] < random_object.remaining_mass) and (parcel2["volume"] < random_object.remaining_volume):
+                        random_object.add_cargo(parcel2["id"], parcel2["mass"], parcel2["volume"])
+                        if random_object.remaining_volume > 0:
+                            accept = True
+                            random_object2.append(parcel1)
+                            random_object2.remove(parcel2)
+
+                    else:
+                        random_object.add_cargo(parcel1["id"], parcel1["mass"], parcel1["volume"])
 
         else:
             parcel1 = random.choice(random_object.cargo_list)

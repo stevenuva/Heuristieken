@@ -49,8 +49,10 @@ class Spacecraft:
                 return self.removed_list, self.remaining_mass, self.remaining_volume, self.cargo_list,
                 self.filled_mass, self.filled_volume
 
-    # def score(self):
-    #     self.score = scores
+    def score(self):
+        self.score = self.remaining_mass * 0.3 + self.remaining_volume * 0.7
+        return self.score
+
 
         # properties of the spacecrafts
 Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)

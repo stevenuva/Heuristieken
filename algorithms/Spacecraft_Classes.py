@@ -1,8 +1,5 @@
 import math
 
-# class for using the spacecraft properties
-# adds cargo, calculates the cost, and mass and volume used and remaining
-
 
 class Spacecraft:
 
