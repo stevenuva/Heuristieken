@@ -1,3 +1,0 @@
-Extern Libraries:
-
-- matplotlib
