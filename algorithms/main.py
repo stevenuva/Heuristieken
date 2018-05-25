@@ -67,28 +67,28 @@ if question == "a" or question == "b":
 
 if question == "c":
     if algorithm == "greedy":
-        prepared_list = pre_load_greedy("CargoList2", 75, 70)
+        prepared_list = pre_load_greedy("CargoList2", 71, 0)
 
         # define the properties of the spacecraft
         # the list of spacecrafts is sorted on kg/m3 ratio
         spacecrafts = hlp.define_spacecrafts()
         hlp.greedy_filling(prepared_list, spacecrafts)
         greedy_result_2 = hlp.results(spacecrafts)
-        print("Result random greedy question C: Lengt is", greedy_result_2["length"],
+        print("Result random greedy question C: Length is", greedy_result_2["length"],
               "and with a cost of", greedy_result_2["cost"])
 
     if algorithm == "random greedy":
         # highest length found with the random greedy was 72
         # lowest cost found with 72 with the random greedy was 2001731335 dollar
         result_rnd_greedy_2 = random_greedy("CargoList2", 96, 93, 1000, boundaries_cargo2)
-        print("Result random greedy question C: Lengt is", result_rnd_greedy_2["length"],
+        print("Result random greedy question C: Length is", result_rnd_greedy_2["length"],
               "and with a cost of", result_rnd_greedy_2["cost"])
 
     if algorithm == "hill climber":
         # highest length found with the hill climber was 71
         # lowest cost found with 71 with the hill climber was 1990903555 dollar
         result_hc_2 = hill_climber("CargoList2", 96, boundaries_cargo2, 100)
-        print("Result random greedy question C: Lengt is", result_hc_2["length"],
+        print("Result random greedy question C: Length is", result_hc_2["length"],
               "and with a cost of", result_hc_2["cost"])
 
         # visualize hill climber

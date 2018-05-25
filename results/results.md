@@ -11,7 +11,7 @@ For the first situation we find that it costs $1.984.648.040
 For the second situation $1.988.118.230
 So, when taking the appropriate FtW ratios, the difference between the options is $3.470.190.
 
-### Question C
+### QUESTION C
 Question C is the same as Question B, but instead of using cargolist 1 we now have to fill up the ships using cargolist 2. The highest number of parcels with our greedy algorithm is 70 parcels.
 
 When using one overall FtW (0.73):
@@ -28,8 +28,8 @@ When we slicte till 71 parcels, it will cost $1.998.095.275. (Cygnus: 14, Progre
 |---|---|---|---|
 |A|83|83|83|
 |B|$1989582285|$1980951280|$1985465920|
-|C (length)|71|71|72
-|C (cost)|$1999105800|$1990903555|$1998124540
+|C (length)|70|71|72
+|C (cost)|$1998043980|$1990903555|$1998124540
 
 ## For te following question a political constraint was opposed. No country could go up in the air more or less than one time than the other countries.
 
