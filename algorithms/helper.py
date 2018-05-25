@@ -107,27 +107,37 @@ def results(spacecrafts):
     return results
 
 
-def define_spacecrafts():
+def define_spacecrafts(number=4):
     """
     Define the properties of the spacecrafts
     Sorts list of spacecraft on kg/m3 ratio
     Returns a sorted list of spacecrafts
     """
 
-    # define properties of the spacecrafts
-    Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-    Progress = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
-    Kounotori = Spacecraft(5200, 14, 10500, 420000000, 0.71)
-    Dragon = Spacecraft(6000, 10, 12200, 347000000, 0.72)
-    # TianZhou = Spacecraft(6500, 15, 13500, 412000000, 0.75)
-    # Verne_ATV = Spacecraft(7500, 48, 20500, 1080000000, 0.72)
+    # define properties of the spacecrafts for questions a,b,c
+    if number == 4:
+        Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
+        Progress = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
+        Kounotori = Spacecraft(5200, 14, 10500, 420000000, 0.71)
+        Dragon = Spacecraft(6000, 10, 12200, 347000000, 0.72)
 
-    # create a list containing all the spaceships
-    spacecrafts = [Cygnus, Dragon, Kounotori, Progress]
+        # create a list containing all the spaceships
+        spacecrafts = [Cygnus, Dragon, Kounotori, Progress]
 
-    # sort list on kg/m3 ratio
-    spacecrafts = sorted(spacecrafts, key=lambda
-                         spacecraft: spacecraft.ratio)
+        # sort list on kg/m3 ratio
+        spacecrafts = sorted(spacecrafts, key=lambda
+                             spacecraft: spacecraft.ratio)
+
+    # define properties of the spacecrafts for d
+    if number == 5:
+        Progress = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
+        Kounotori = Spacecraft(5200, 14, 10500, 420000000, 0.71)
+        Dragon = Spacecraft(6000, 10, 12200, 347000000, 0.72)
+        TianZhou = Spacecraft(6500, 15, 13500, 412000000, 0.75)
+        Verne_ATV = Spacecraft(7500, 48, 20500, 1080000000, 0.72)
+
+        # create a list containing all the spaceships
+        spacecrafts = [Verne_ATV, Dragon, Kounotori, Progress, TianZhou]
 
     return spacecrafts
 
@@ -158,19 +168,6 @@ def preload_spacecrafts(cargolist, spacecrafts, remaining_list, boundaries=[75, 
 
         else:
             remaining_list.append(parcel)
-
-
-def hill_climber(complete_list):
-    """
-    Hillclimber wich needs a list containing the follow list:
-    - list of each (pre-loaded) spacecraft
-    - list of unloaded parcels
-    """
-    # counter variables
-    number_found = 0
-    previous_cost = 0
-    previous_len = 0
-    total_len = 0
 
 
 def swap_list_spacecraft(list, random_object2):

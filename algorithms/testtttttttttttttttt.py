@@ -10,8 +10,6 @@ def random_greedy(cargolist, volume_slicer, mass_slicer, number, boundaries):
         Random Greedy used for questions a, b and class
         Fills the the spacecrafts patially with the best density parcels
         and after that we randomly put packages into the spacecrafts
-        Give a number to decide how many time the random loop will be
-        executed
 
     """
 
@@ -60,12 +58,14 @@ def random_greedy(cargolist, volume_slicer, mass_slicer, number, boundaries):
 
         # preload the the spacecrafts
         hlp.preload_spacecrafts(cargo_list, spacecrafts, remaining_list, boundaries)
+
         remaining_lists = remaining_list[:] + remain1
 
         counter2 = 0
 
-        # repeat the random choices 300 times
+        # repeat the random choices
         while(counter2 < 300):
+
             counter2 += 1
             total_cost = 0
 
@@ -73,14 +73,14 @@ def random_greedy(cargolist, volume_slicer, mass_slicer, number, boundaries):
             parcel = random.choice(remaining_lists)
             spacecraft = random.choice(spacecrafts)
 
-            # check if placement is possible
+            # check if the swap is possible
             if (parcel["mass"] <= spacecraft.remaining_mass) and (parcel["volume"] <= spacecraft.remaining_volume):
                 spacecraft.add_cargo(parcel["id"], parcel["mass"], parcel["volume"])
                 remaining_lists.remove(parcel)
             else:
                 continue
 
-         # get the results dictionary
+        # get the results dictionary
         result = hlp.results(spacecrafts)
 
         # unpack dictionary

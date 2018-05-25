@@ -119,10 +119,11 @@ def hill_climber(cargo_list_csv, slice, boundaries, number):
 
         total_len_list.append(total_len)
 
+    # plot and draw graph
     plt.plot(counter_list, total_len_list)
-    # plt.show(block=False)
     plt.draw()
 
+    # result to return multiple values
     result = {"length": total_len, "cost": cost}
 
     return result

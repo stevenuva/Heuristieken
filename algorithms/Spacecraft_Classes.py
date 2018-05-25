@@ -1,9 +1,19 @@
 import math
 
+"""
+Class spacecraft
+
+Used to initialize a spacecraft and to add, remove cargo
+Functions include cost calculation and volume and mass checks
+"""
+
 
 class Spacecraft:
 
     def __init__(self, payload_mass, volume, spacecraft_mass, base_cost, ftw):
+        """
+        Function to initialize a spacecraft
+        """
         self.base_cost = base_cost
         self.cargo_list = []
         self.filled_mass = 0
@@ -18,6 +28,9 @@ class Spacecraft:
         self.volume = volume
 
     def add_cargo(self, cargo_id, cargo_weight, cargo_volume):
+        """
+        Function to add cargo to a spaceship
+        """
         self.remaining_mass -= round(cargo_weight, 3)
         self.remaining_volume -= round(cargo_volume, 3)
         self.filled_mass = round((self.payload_mass - (self.remaining_mass)), 3)
@@ -29,6 +42,9 @@ class Spacecraft:
         self.filled_mass, self.filled_volume
 
     def cost(self):
+        """
+        Function to calculate the cost of a spaceship
+        """
         self.filled_mass = self.payload_mass - (self.remaining_mass)
         self.filled_volume = self.volume - (self.remaining_volume)
         self.fuel = (self.filled_mass + self.spacecraft_mass) * self.ftw
@@ -36,14 +52,24 @@ class Spacecraft:
         return self.total_cost
 
     def filled(self):
+        """
+        Function to check how space craft is filled
+        Checks the cargolist and the used mass and volume
+        """
         self.filled_mass = self.payload_mass - (self.remaining_mass)
         self.filled_volume = self.volume - (self.remaining_volume)
         return self.filled_mass, self.filled_volume, self.cargo_list
 
     def remaining(self):
+        """
+        Function to check the remaining mass and volume
+        """
         return self.remaining_mass, self.remaining_volume
 
     def remove_cargo(self, cargo_id):
+        """
+        Function to remove cargo from the spacecraft
+        """
         for parcel in self.cargo_list:
             if parcel.get("id") == cargo_id:
                 removed_cargo = parcel
@@ -55,20 +81,3 @@ class Spacecraft:
                 self.removed_list.append(parcel)
                 return self.removed_list, self.remaining_mass, self.remaining_volume, self.cargo_list,
                 self.filled_mass, self.filled_volume
-
- # def score(self)
-
-# # define properties of the spacecrafts
-# Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-# Progress = Spacecraft(2400, 7.6, 7020, 175, 0.74)
-# Kounotori = Spacecraft(5200, 14, 10500, 420, 0.71)
-# Dragon = Spacecraft(6000, 10, 12200, 347, 0.72)
-# TianZhou = Spacecraft(6500, 15, 13500, 412, 0.75)
-# Verne_ATV = Spacecraft(7500, 48, 20500, 1080, 0.72)
-
-# Cygnus = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-# print(Cygnus.remaining())
-# Cygnus.add_cargo("#4", 100, 10)
-# print(Cygnus.filled())
-# print(Cygnus.remaining())
-# print(Cygnus.cost())

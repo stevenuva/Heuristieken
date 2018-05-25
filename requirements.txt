@@ -1,3 +1,10 @@
 Libraries
 
 https://docs.python.org/3/library/itertools.html#itertools.combinations
+
+csv
+json
+math
+matplotlib
+os
+random
