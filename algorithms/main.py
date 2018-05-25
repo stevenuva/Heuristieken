@@ -23,18 +23,17 @@ from random_greedy import random_greedy
 from Spacecraft_Classes import Spacecraft
 
 # ask which question needs to be answered
-question = "a"  # input("What question do you want to see? (a, b, c, d, e)")
+question = str(input("What question do you want to see? (a, b, c, d, e): "))
 
 # ask for algorithm to be used for question a, b and c
 if question in ["a", "b", "c"]:
-    algorithm = "hill climber"  # input("Which algorithm (greedy, random greedy, hill climber)")
+    algorithm = str(input("Which algorithm (greedy, random greedy, hill climber)"))
 
 # boundaries needed for pre loading cargolists
 boundaries_cargo1 = [100, 15, 19, 250]
 boundaries_cargo2 = [130, 20, 45, 150]
 
 if question == "a" or question == "b":
-    algorithm = "random greedy"
 
     # answer a and b with greedy algorithm
     if algorithm == "greedy":
