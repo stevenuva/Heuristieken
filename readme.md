@@ -1,4 +1,4 @@
-# minor-programmeren
+# Heuristieken (minor-programmeren)
 
 # Case
 
